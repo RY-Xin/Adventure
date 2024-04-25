@@ -1,7 +1,8 @@
 import json
+
 def load_map(map_file):
     with open(map_file, 'r') as f:
-        map_data = json.load(f)
+        map_data = map.load(f)
     return map_data
 
 
@@ -166,3 +167,4 @@ for room_data in map_data["rooms"]:
 
 # 设置玩家初始房间
 player.current_room = rooms[map_data["start"]]
+  
