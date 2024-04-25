@@ -2,7 +2,7 @@ import json
 
 def load_map(map_file):
     with open(map_file, 'r') as f:
-        map_data = json.load(f)
+        map_data = map.load(f)
     return map_data
 
 
@@ -94,10 +94,10 @@ class Player:
 
 
 # Define rooms
-room1 = Room("A white room", "You are in a simple room with white walls.", {}, items = ["key", "card"], locked_exits = {"north": "key", "east":"card"})
-room2 = Room("A blue room", "This room is simple, too, but with blue walls.", {}, ["cat"], locked_exits = {"south": "card", "east":"key"})
-room3 = Room("A green room", "You are in a simple room, with bright green walls.", {}, items = ["banana", "photo"], locked_exits = {"south": "key", "west":"photo"})
-room4 = Room("A red room", "This room is fancy. It's red!", {}, items = ["rose"], locked_exits = {"north": "rose", "west":"key"})
+room1 = Room("A white room", "You are in a simple room with white walls.", {}, items = ["key"], locked_exits = {"north": "key", "east":"card"})
+room2 = Room("A blue room", "This room is simple, too, but with blue walls.", {}, [], {})
+room3 = Room("A green room", "You are in a simple room, with bright green walls.", {}, items = ["banana", "bandana", "bellows", "deck of cards"])
+room4 = Room("A red room", "This room is fancy. It's red!", {}, items = ["rose"], locked_exits = {"north": "rose"})
 
 # Connect each room
 room1.exits = {"north": room2, "east": room4}
