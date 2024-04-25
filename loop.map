@@ -5,29 +5,26 @@
         "name": "A white room",
         "desc": "You are in a simple room with white walls.",
         "exits": { "north": "A blue room", "east": "A red room" },
-        "items": ["key", "card"],
-        "locked_exits": {"north": "key", "east":"card"}
+        "items": ["key"],
+        "locked_exits": {"north": "key"}
       },
       {
         "name": "A blue room",
         "desc": "This room is simple, too, but with blue walls.",
-        "exits": { "east": "A green room", "south": "A white room" },
-        "items":["cat"],
-        "locked_exits": {"south": "card", "east":"key"}
+        "exits": { "east": "A green room", "south": "A white room" }
       },
       {
         "name": "A green room",
         "desc": "You are in a simple room, with bright green walls.",
         "exits": { "west": "A blue room", "south": "A red room" },
-        "items": ["banana", "photo"],
-        "locked_exits": {"south": "key", "west":"photo"}
+        "items": ["banana", "bandana", "bellows", "deck of cards"]
       },
       {
         "name": "A red room",
         "desc": "This room is fancy. It's red!",
         "exits": { "north": "A green room", "west": "A white room" },
         "items": ["rose"],
-        "locked_exits": {"north": "rose", "west":"key"}
+        "locked_exits": {"north": "rose"}
       }
     ]
   }

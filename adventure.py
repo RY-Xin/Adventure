@@ -1,8 +1,7 @@
 import json
-
 def load_map(map_file):
     with open(map_file, 'r') as f:
-        map_data = map.load(f)
+        map_data = json.load(f)
     return map_data
 
 
