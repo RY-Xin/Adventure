@@ -23,7 +23,7 @@ class Room:
         print(f"The {direction} exit is now locked and requires {required_item} to unlock.")
 
     def __str__(self):
-        exits_str = ' '.join([f"{direction}={room}" for direction, room in self.exits.items()])
+        exits_str = ' '.join(self.exits.items())
         items_str = ', '.join(self.items) if self.items else "None"
         return f"{self.name}\n\n{self.desc}\n\nItems: {items_str}\n\nExists: {exits_str}\n"
     
