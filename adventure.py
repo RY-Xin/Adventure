@@ -1,8 +1,15 @@
+# import json
+
+# def load_map(map_file):
+#     with open(map_file, 'r') as f:
+#         map_data = map.load(f)
+#     return map_data
 import json
 
 def load_map(map_file):
     with open(map_file, 'r') as f:
         map_data = json.load(f)
+    print("Loaded map data:", map_data)  # 添加这行打印语句
     return map_data
 
 
