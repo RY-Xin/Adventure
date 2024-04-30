@@ -1,7 +1,7 @@
 { "start": "A white room",
   "rooms": [
             {"name": "A white room", "desc": "You are in a simple room with white walls.",
-             "exits": { "north": "A blue room", "east": "A red room" }
+             "exits": { "north": "A blue room", "northeast": "A red room" }
             }
            ,
             {"name": "A blue room", "desc": "This room is simple, too, but with blue walls.",

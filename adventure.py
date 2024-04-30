@@ -107,8 +107,6 @@ map_data = load_map(sys.argv[1])
 rooms = {}  # 用于存储房间对象的字典
 
 
-
-
 # 创建房间对象并添加到字典中
 for room_data in map_data["rooms"]:
     room = Room(room_data["name"], room_data["desc"], room_data["exits"], room_data.get("items", []))
@@ -117,7 +115,10 @@ for room_data in map_data["rooms"]:
 # 连接房间
 for room_data in map_data["rooms"]:
     current_room = rooms[room_data["name"]]
+    # print(rooms)
     for direction, room_name in room_data["exits"].items():
+        
+        # print(direction,room_name)
         current_room.exits[direction] = rooms[room_name]
 
 
@@ -132,17 +133,18 @@ while True:
     if not action:
         continue
     verb = action[0]
-    if verb in ["n", "s", "e", "w", "u", "d"]:
-        direction = verb  # 如果输入的是方向，则直接使用该方向
-        if player.go(direction):
-            player.look()
-    elif verb == "go":
+    if verb == "go":
         if len(action) < 2:
             print("Sorry, you need to 'go' somewhere.")
             continue
         direction = action[1]
-        if player.go(direction):
-            player.look()
+        if direction in player.current_room.exits:
+            if player.go(direction):
+                player.look()
+        else:
+            matches = [dire for dire in player.current_room.exits if direction in dire]
+            
+            print(f"Did you want to go {matches[0]} or {matches[1]}?")
     elif verb == "look":
         player.look()
     elif verb == "get":
@@ -167,6 +169,3 @@ while True:
         # player.look()
     else:
         print("I don't understand that command.")
-
-
-  
