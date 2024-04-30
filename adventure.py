@@ -143,7 +143,6 @@ while True:
                 player.look()
         else:
             matches = [dire for dire in player.current_room.exits if direction in dire]
-            
             print(f"Did you want to go {matches[0]} or {matches[1]}?")
     elif verb == "look":
         player.look()
