@@ -1,17 +1,4 @@
-# import json
-
-# def load_map(map_file):
-#     with open(map_file, 'r') as f:
-#         map_data = map.load(f)
-#     return map_data
 import json
-
-def load_map(map_file):
-    with open(map_file, 'r') as f:
-        map_data = json.load(f)
-    print("Loaded map data:", map_data)  # 添加这行打印语句
-    return map_data
-
 
 class Room:
     def __init__(self, name, desc, exits, items=None, locked_exits=None):
@@ -100,22 +87,37 @@ class Player:
         print("  drop")
 
 
-# Define rooms
-room1 = Room("A white room", "You are in a simple room with white walls.", {}, items = ["key"], locked_exits = {"north": "key", "east":"card"})
-room2 = Room("A blue room", "This room is simple, too, but with blue walls.", {}, [], {})
-room3 = Room("A green room", "You are in a simple room, with bright green walls.", {}, items = ["banana", "bandana", "bellows", "deck of cards"])
-room4 = Room("A red room", "This room is fancy. It's red!", {}, items = ["rose"], locked_exits = {"north": "rose"})
+def load_map(map_file):
+    with open(map_file, 'r') as f:
+        map_data = json.load(f)
+    print("Loaded map data:", map_data)  # 添加这行打印语句
 
-# Connect each room
-room1.exits = {"north": room2, "east": room4}
-room2.exits = {"east": room3, "south": room1}
-room3.exits = {"south": room4, "west": room2}
-room4.exits = {"west": room1, "north": room3}
+    rooms = {}  # 用于存储房间对象的字典
 
-# Initialize Player
+    # 创建房间对象并添加到字典中
+    for room_data in map_data["rooms"]:
+        room = Room(room_data["name"], room_data["desc"], room_data["exits"], room_data.get("items", []))
+        rooms[room_data["name"]] = room
+
+    # 连接房间
+    for room_data in map_data["rooms"]:
+        current_room = rooms[room_data["name"]]
+        for direction, room_name in room_data["exits"].items():
+            current_room.exits[direction] = rooms[room_name]
+
+    return map_data, rooms
+
+
+# 初始化 Player
 player = Player()
-player.current_room = room1
+
+# 加载地图数据并创建房间对象
+map_data, rooms = load_map("loop.map")
+
+# 设置玩家初始房间
+player.current_room = rooms[map_data["start"]]
 print(player.current_room)
+
 while True:
     action = input("What would you like to do?").strip().lower().split()
     if not action:
@@ -153,25 +155,5 @@ while True:
             continue
         item = action[1]
         player.drop(item)
-        # player.look()
     else:
         print("I don't understand that command.")
-
-
-map_data = load_map("loop.map")
-rooms = {}  # 用于存储房间对象的字典
-
-# 创建房间对象并添加到字典中
-for room_data in map_data["rooms"]:
-    room = Room(room_data["name"], room_data["desc"], room_data["exits"], room_data.get("items", []))
-    rooms[room_data["name"]] = room
-
-# 连接房间
-for room_data in map_data["rooms"]:
-    current_room = rooms[room_data["name"]]
-    for direction, room_name in room_data["exits"].items():
-        current_room.exits[direction] = rooms[room_name]
-
-# 设置玩家初始房间
-player.current_room = rooms[map_data["start"]]
-  
