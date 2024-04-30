@@ -41,7 +41,7 @@ class Player:
 
         if(self.current_room.items):
             print(f'Items: {items_str}\n')
-        print(f'Exists: {exits_str}\n')
+        print(f'Exits: {exits_str}\n')
 
     def go(self, direction):
         if direction in ["n", "s", "e", "w", "u", "d"]:
