@@ -34,7 +34,7 @@ class Player:
         self.inventory = []
 
     def describe_room(self):
-        print(f'{self.current_room.name}\n\n{self.current_room.desc}\n')
+        print(f'> {self.current_room.name}\n\n{self.current_room.desc}\n')
 
         exits_str = ' '.join(self.current_room.exits.keys())
         items_str = ' '.join(self.current_room.items) if self.current_room.items else "None"
@@ -61,12 +61,11 @@ class Player:
             print()
             return True
         else:
-            print("There's no way in that direction.")
+            print(f"There's no way to go {direction}.")
             return False
 
     def look(self):
-        print(self.current_room)
-        return str(self.current_room)
+        self.describe_room()
 
     def get(self, item):
         if item in self.current_room.items:
@@ -129,7 +128,7 @@ player.current_room = rooms[map_data["start"]]
 
 player.describe_room()
 while True:
-    action = input("What would you like to do?").strip().lower().split()
+    action = input("What would you like to do? ").strip().lower().split()
     if not action:
         continue
     verb = action[0]
@@ -139,7 +138,7 @@ while True:
             player.look()
     elif verb == "go":
         if len(action) < 2:
-            print("Sorry, you need to go somewhere.")
+            print("Sorry, you need to 'go' somewhere.")
             continue
         direction = action[1]
         if player.go(direction):
