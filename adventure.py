@@ -1,8 +1,8 @@
 import json
-
+import sys
 def load_map(map_file):
     with open(map_file, 'r') as f:
-        map_data = map.load(f)
+        map_data = json.load(f)
     return map_data
 
 
@@ -151,7 +151,7 @@ while True:
         print("I don't understand that command.")
 
 
-map_data = load_map("loop.map")
+map_data = load_map(sys.argv[0])
 rooms = {}  # 用于存储房间对象的字典
 
 # 创建房间对象并添加到字典中
