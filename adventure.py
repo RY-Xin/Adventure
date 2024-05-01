@@ -35,7 +35,6 @@ class Player:
 
     def describe_room(self):
         print(f'> {self.current_room.name}\n\n{self.current_room.desc}\n')
-
         exits_str = ' '.join(self.current_room.exits.keys())
         items_str = ', '.join(self.current_room.items) if self.current_room.items else "None"
 
@@ -73,15 +72,15 @@ class Player:
             self.inventory.append(item)
             print(f"You pick up the {item}.")
         else:
-            print(f"There's no {item} here.")
+            print(f"There's no {item} anywhere.")
 
     def show_inventory(self):
         if not self.inventory:
             print("You're not carrying anything.")
         else:
-            print("You're carrying:")
+            print("Inventory:")
             for item in self.inventory:
-                print(item)
+                print(f" {item}")
 
     def drop(self, item):
         if item in self.inventory:
@@ -163,7 +162,7 @@ while True:
         player.look()
     elif verb == "get":
         if len(action) < 2:
-            print("Sorry, you need to get something.")
+            print("Sorry, you need to 'get' something.")
             continue
         item = action[1]
         player.get(item)
