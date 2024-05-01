@@ -37,7 +37,7 @@ class Player:
         print(f'> {self.current_room.name}\n\n{self.current_room.desc}\n')
 
         exits_str = ' '.join(self.current_room.exits.keys())
-        items_str = ' '.join(self.current_room.items) if self.current_room.items else "None"
+        items_str = ', '.join(self.current_room.items) if self.current_room.items else "None"
 
         if(self.current_room.items):
             print(f'Items: {items_str}\n')
