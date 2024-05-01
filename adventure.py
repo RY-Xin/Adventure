@@ -128,57 +128,48 @@ player.current_room = rooms[map_data["start"]]
 
 player.describe_room()
 while True:
-    action = input("What would you like to do? ").strip().lower().split()
-    if not action:
-        continue
-    verb = action[0]
-    if verb == "go":
-        if len(action) < 2:
-            print("Sorry, you need to 'go' somewhere.")
+    try:
+        action = input("What would you like to do? ").strip().lower().split()
+        if not action:
             continue
-        direction = action[1]
-        if direction in player.current_room.exits:
-            if player.go(direction):
-                player.look()
-        else:
-            matches = [dire for dire in player.current_room.exits if direction in dire]
-            if matches:
-                print(f"Did you want to go {matches[0]} or {matches[1]}?")
+        verb = action[0]
+        if verb == "go":
+            if len(action) < 2:
+                print("Sorry, you need to 'go' somewhere.")
+                continue
+            direction = action[1]
+            if direction in player.current_room.exits:
+                if player.go(direction):
+                    player.look()
             else:
-                print(f"There's no way to go {direction}.")
-
-    # if verb == "go":
-    #     if len(action) < 2:
-    #         print("Sorry, you need to 'go' somewhere.")
-    #         continue
-    #     direction = action[1]
-    #     if direction in player.current_room.exits:
-    #         if player.go(direction):
-    #             player.look()
-    #     else:
-    #         matches = [dire for dire in player.current_room.exits if direction in dire]
-    #         print(f"Did you want to go {matches[0]} or {matches[1]}?")
-    elif verb == "look":
-        player.look()
-    elif verb == "get":
-        if len(action) < 2:
-            print("Sorry, you need to 'get' something.")
-            continue
-        item = action[1]
-        player.get(item)
-    elif verb == "inventory":
-        player.show_inventory()
-    elif verb == "quit":
-        print("Goodbye!")
-        break
-    elif verb == "help":
-        player.help()
-    elif verb == "drop":
-        if len(action) < 2:
-            print("Sorry, you need to drop something")
-            continue
-        item = action[1]
-        player.drop(item)
-        # player.look()
-    else:
-        print("I don't understand that command.")
+                matches = [dire for dire in player.current_room.exits if direction in dire]
+                if matches:
+                    print(f"Did you want to go {matches[0]} or {matches[1]}?")
+                else:
+                    print(f"There's no way to go {direction}.")
+        elif verb == "look":
+            player.look()
+        elif verb == "get":
+            if len(action) < 2:
+                print("Sorry, you need to 'get' something.")
+                continue
+            item = action[1]
+            player.get(item)
+        elif verb == "inventory":
+            player.show_inventory()
+        elif verb == "quit":
+            print("Goodbye!")
+            break
+        elif verb == "help":
+            player.help()
+        elif verb == "drop":
+            if len(action) < 2:
+                print("Sorry, you need to drop something")
+                continue
+            item = action[1]
+            player.drop(item)
+            # player.look()
+        else:
+            print("I don't understand that command.")
+    except EOFError:
+        print("Use 'quit' to exit.")
