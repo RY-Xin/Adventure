@@ -143,7 +143,22 @@ while True:
                 player.look()
         else:
             matches = [dire for dire in player.current_room.exits if direction in dire]
-            print(f"Did you want to go {matches[0]} or {matches[1]}?")
+            if matches:
+                print(f"Did you want to go {matches[0]} or {matches[1]}?")
+            else:
+                print(f"There's no way to go {direction}.")
+
+    # if verb == "go":
+    #     if len(action) < 2:
+    #         print("Sorry, you need to 'go' somewhere.")
+    #         continue
+    #     direction = action[1]
+    #     if direction in player.current_room.exits:
+    #         if player.go(direction):
+    #             player.look()
+    #     else:
+    #         matches = [dire for dire in player.current_room.exits if direction in dire]
+    #         print(f"Did you want to go {matches[0]} or {matches[1]}?")
     elif verb == "look":
         player.look()
     elif verb == "get":
