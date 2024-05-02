@@ -1,7 +1,9 @@
 { "start": "A white room",
   "rooms": [
             {"name": "A white room", "desc": "You are in a simple room with white walls.",
-             "exits": { "north": "A blue room", "east": "A red room" }
+             "exits": { "north": "A blue room", "east": "A red room" },
+             "items": ["key"],
+             "locked_exits": {"east": "key"}
             }
            ,
             {"name": "A blue room", "desc": "This room is simple, too, but with blue walls.",
@@ -9,8 +11,7 @@
             }
            ,
             {"name": "A green room", "desc": "You are in a simple room, with bright green walls.",
-             "exits": { "west": "A blue room", "south": "A red room" },
-             "items": []
+             "exits": { "west": "A blue room", "south": "A red room" }
             }
            ,
             {"name": "A red room", "desc": "This room is fancy. It's red!",
