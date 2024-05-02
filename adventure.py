@@ -80,7 +80,7 @@ class Player:
         else:
             print("Inventory:")
             for item in self.inventory:
-                print(f" {item}")
+                print(f"  {item}")
 
     def drop(self, item):
         if item in self.inventory:

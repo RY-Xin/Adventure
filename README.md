@@ -6,6 +6,6 @@ I tested my code through Visual Studio Code, according to the examples of the pr
 Any bugs or issues I could not resolve? 
 I got a lot of issues, I had no idea about it, so TA helped me a lot. The details of the project, like whitspaces, formats and I didn't do it well to load the map to test it, some logical errors, type errors and so on.
 An example of a difficult issue or bug and how I resolved?
-"Differences are exclusively in whitespace." - that's my most hard issue to fix, TA helped me to fix a lot, like load the map correctly, correct the code to run it well, but the whitespace is really hard to fix.
+"Differences are exclusively in whitespace." - that's my most hard issue to fix, TA helped me to fix a lot, like load the map correctly, correct the code to run it well, but the whitespace is really hard to fix. I checked the examples to make it right.
 A list of the three extensions I’ve chosen to implement:
-the verb help, drop and locked door.
+the verb help, drop and directions become verbs.
