@@ -32,6 +32,23 @@ class Player:
     def __init__(self):
         self.current_room = None
         self.inventory = []
+        self.verbs = {
+            "go": self.go,
+            "get": self.get,
+            "look": self.look,
+            "inventory": self.show_inventory,
+            "quit": self.quit,
+            "help": self.help,
+            "drop": self.drop
+        }
+
+    def help(self):
+        print("You can run the following commands:")
+        for verb in self.verbs:
+            if verb in ["look", "inventory", "quit", "help"]:
+                print(f"  {verb}")
+            else:
+                print(f"  {verb} ...")
 
     def describe_room(self):
         print(f'> {self.current_room.name}\n\n{self.current_room.desc}\n')
@@ -90,21 +107,24 @@ class Player:
         else:
             print(f"You don't have {item} in your inventory.")
 
-    def help(self):
-        print("You can run the following commands:")
-        print("  go ...")
-        print("  get ...")
-        print("  look")
-        print("  inventory")
-        print("  quit")
-        print("  help")
-        print("  drop")
+    def quit(self):
+        print("Goodbye!")
+        sys.exit(0)
+
+    # def help(self):
+    #     print("You can run the following commands:")
+    #     print("  go ...")
+    #     print("  get ...")
+    #     print("  look")
+    #     print("  inventory")
+    #     print("  quit")
+    #     print("  help")
+    #     print("  drop ...")
 
 # print(sys.argv)
 map_data = load_map(sys.argv[1])
 
 rooms = {}  # 用于存储房间对象的字典
-
 
 # 创建房间对象并添加到字典中
 for room_data in map_data["rooms"]:
@@ -127,7 +147,6 @@ player = Player()
 player.current_room = rooms[map_data["start"]]
 player.describe_room()
 
-# 在代码的开头定义方向词的缩写和完整方向词之间的映射关系（反转）
 verb_to_direction = {
     "north": "n",
     "south": "s",
@@ -149,10 +168,12 @@ while True:
         if not action:
             continue
         verb = action[0]
-        # 如果动词是方向词的缩写，则映射为"go"动词并添加方向词参数
         if verb in verb_to_direction.keys():
             direction = verb_to_direction[verb]
             verb = "go"
+            action.insert(1, direction)
+        if len(action) > 1:
+            direction = action[1]
             action.insert(1, direction)
         if verb == "go":
             if len(action) < 2:
@@ -179,8 +200,7 @@ while True:
         elif verb == "inventory":
             player.show_inventory()
         elif verb == "quit":
-            print("Goodbye!")
-            break
+            player.quit()
         elif verb == "help":
             player.help()
         elif verb == "drop":
@@ -240,9 +260,6 @@ while True:
 #         print(f'Exits: {exits_str}\n')
 
 #     def go(self, direction):
-#         if direction in ["n", "s", "e", "w", "u", "d"]:
-#             direction = {"n": "north", "s": "south", "e": "east", "w": "west", "u": "up", "d": "down"}[direction]
-        
 #         if direction in self.current_room.exits:
 #             if direction in self.current_room.locked_exits:
 #                 required_item = self.current_room.locked_exits[direction]
@@ -252,10 +269,13 @@ while True:
 #                 else:
 #                     print(f"The {direction} exit is locked. You need {required_item} to unlock it.")
 #                     return False
-#             self.current_room = self.current_room.exits[direction]
-#             print(f"You go {direction}.")
-#             print()
-#             return True
+#             else:
+#                 next_room = self.current_room.exits[direction]
+#                 self.current_room = next_room
+#                 # self.current_room = self.current_room.exits[direction]
+#                 print(f"You go {direction}.")
+#                 print()
+#                 return True
 #         else:
 #             print(f"There's no way to go {direction}.")
 #             return False
@@ -277,7 +297,7 @@ while True:
 #         else:
 #             print("Inventory:")
 #             for item in self.inventory:
-#                 print(f" {item}")
+#                 print(f"  {item}")
 
 #     def drop(self, item):
 #         if item in self.inventory:
@@ -322,14 +342,35 @@ while True:
 # player = Player()
 # # 设置玩家初始房间
 # player.current_room = rooms[map_data["start"]]
-
 # player.describe_room()
+
+# # 在代码的开头定义方向词的缩写和完整方向词之间的映射关系（反转）
+# verb_to_direction = {
+#     "north": "n",
+#     "south": "s",
+#     "east": "e",
+#     "west": "w",
+#     "up": "u",
+#     "down": "d",
+#     "n": "north",
+#     "s": "south",
+#     "e": "east",
+#     "w": "west",
+#     "u": "up",
+#     "d": "down"
+# }
+
 # while True:
 #     try:
 #         action = input("What would you like to do? ").strip().lower().split()
 #         if not action:
 #             continue
 #         verb = action[0]
+#         # 如果动词是方向词的缩写，则映射为"go"动词并添加方向词参数
+#         if verb in verb_to_direction.keys():
+#             direction = verb_to_direction[verb]
+#             verb = "go"
+#             action.insert(1, direction)
 #         if verb == "go":
 #             if len(action) < 2:
 #                 print("Sorry, you need to 'go' somewhere.")

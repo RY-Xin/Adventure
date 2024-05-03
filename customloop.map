@@ -18,5 +18,13 @@
              "exits": { "north": "A green room", "west": "A white room" },
              "items": ["rose"]
             }
-           ]
+           ],
+            "directions": {
+                "north": ["n"],
+                "south": ["s"],
+                "east": ["e"],
+                "west": ["w"],
+                "up": ["u"],
+                "down": ["d"]
+            }
 }
