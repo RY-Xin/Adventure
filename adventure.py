@@ -66,6 +66,12 @@ class Player:
                 if required_item in self.inventory:
                     print(f"You unlock the {direction} exit with {required_item}.")
                     self.current_room.unlock_exit(direction, required_item)
+                    next_room = self.current_room.exits[direction]
+                    self.current_room = next_room
+                    # self.current_room = self.current_room.exits[direction]
+                    print(f"You go {direction}.")
+                    print()
+                    return True
                 else:
                     print(f"The {direction} exit is locked. You need {required_item} to unlock it.")
                     return False
@@ -128,7 +134,7 @@ rooms = {}  # 用于存储房间对象的字典
 
 # 创建房间对象并添加到字典中
 for room_data in map_data["rooms"]:
-    room = Room(room_data["name"], room_data["desc"], room_data["exits"], room_data.get("items", []))
+    room = Room(room_data["name"], room_data["desc"], room_data["exits"], room_data.get("items", []), room_data.get("locked_exits", {}))
     rooms[room_data["name"]] = room
 
 # 连接房间
@@ -231,13 +237,13 @@ while True:
 #         self.items = items if items else []
 #         self.locked_exits = locked_exits if locked_exits else {}
 
-#     def unlock_exit(self, direction, required_item):
-#         self.locked_exits.pop(direction, None)
-#         print(f"The {direction} exit is now unlocked with {required_item}.")
-
 #     def lock_exit(self, direction, required_item):
 #         self.locked_exits[direction] = required_item
 #         print(f"The {direction} exit is now locked and requires {required_item} to unlock.")
+
+#     def unlock_exit(self, direction, required_item):
+#         self.locked_exits.pop(direction, None)
+#         print(f"The {direction} exit is now unlocked with {required_item}.")
 
 #     def __str__(self):
 #         exits_str = ' '.join(self.exits.keys())
@@ -266,6 +272,7 @@ while True:
 #                 if required_item in self.inventory:
 #                     print(f"You unlock the {direction} exit with {required_item}.")
 #                     self.current_room.unlock_exit(direction, required_item)
+#                     return True
 #                 else:
 #                     print(f"The {direction} exit is locked. You need {required_item} to unlock it.")
 #                     return False
@@ -316,6 +323,18 @@ while True:
 #         print("  quit")
 #         print("  help")
 #         print("  drop")
+    
+#     def lock(self, direction, required_item):
+#         if direction in self.current_room.exits:
+#             self.current_room.lock_exit(direction, required_item)
+#         else:
+#             print("There's no such exit to lock.")
+
+#     def unlock(self, direction, required_item):
+#         if direction in self.current_room.exits:
+#             self.current_room.unlock_exit(direction, required_item)
+#         else:
+#             print("There's no such exit to unlock.")
 
 # # print(sys.argv)
 # map_data = load_map(sys.argv[1])
@@ -325,6 +344,7 @@ while True:
 
 # # 创建房间对象并添加到字典中
 # for room_data in map_data["rooms"]:
+#     locked_exits = room_data.get("locked_exits", {})
 #     room = Room(room_data["name"], room_data["desc"], room_data["exits"], room_data.get("items", []))
 #     rooms[room_data["name"]] = room
 
@@ -400,9 +420,23 @@ while True:
 #             break
 #         elif verb == "help":
 #             player.help()
+#         elif verb == "lock":
+#             if len(action) < 3:
+#                 print("Usage: lock [direction] [item]")
+#                 continue
+#             direction = action[1]
+#             required_item = action[2]
+#             player.lock(direction, required_item)
+#         elif verb == "unlock":
+#             if len(action) < 3:
+#                 print("Usage: unlock [direction] [item]")
+#                 continue
+#             direction = action[1]
+#             required_item = action[2]
+#             player.unlock(direction, required_item)
 #         elif verb == "drop":
 #             if len(action) < 2:
-#                 print("Sorry, you need to drop something")
+#                 print("Sorry, you need to 'drop' something")
 #                 continue
 #             item = action[1]
 #             player.drop(item)

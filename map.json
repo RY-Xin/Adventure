@@ -23,8 +23,7 @@
         "name": "A red room",
         "desc": "This room is fancy. It's red!",
         "exits": { "north": "A green room", "west": "A white room" },
-        "items": ["rose"],
-        "locked_exits": {"north": "rose"}
+        "items": ["rose"]
       }
     ]
   }
