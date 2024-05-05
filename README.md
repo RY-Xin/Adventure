@@ -12,3 +12,4 @@ The verb 'help', 'drop' and directions become verbs.
 The 'help' verb tells players what the valid verbs are, and it's not simply be static text, it will generated from the verbs that we have defined;
 The 'drop' verb is the opposite of 'get': take something from your inventory and put it down in the room. Just as get only lets you get items that are in the room, drop should only let you drop items that you already have;
 'Directions become verbs': simply typing 'e' to go east.
+And I also made a "locked doors", you need to add the locked_exits on the map and go to a direction, then it will show 'you go somewhere' or 'you need something to unlock it'. If the item is in your inventory, it will unlock it automatically, else, you need to get the item to unlock the door.
