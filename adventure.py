@@ -117,15 +117,6 @@ class Player:
         print("Goodbye!")
         sys.exit(0)
 
-    # def help(self):
-    #     print("You can run the following commands:")
-    #     print("  go ...")
-    #     print("  get ...")
-    #     print("  look")
-    #     print("  inventory")
-    #     print("  quit")
-    #     print("  help")
-    #     print("  drop ...")
 
 # print(sys.argv)
 map_data = load_map(sys.argv[1])
